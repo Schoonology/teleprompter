@@ -1,0 +1,26 @@
+{
+  "name": "teleprompter",
+  "version": "0.1.0",
+  "description": "An application to synchronize scrolling text across controlling and viewing devices.",
+  "main": "lib/index.js",
+  "bin": "bin/teleprompter",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Schoonology/teleprompter.git"
+  },
+  "author": "Michael Schoonmaker <michael.r.schoonmaker@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Schoonology/teleprompter/issues"
+  },
+  "homepage": "https://github.com/Schoonology/teleprompter#readme",
+  "dependencies": {
+    "finalhandler": "~0.4.1",
+    "minimist": "~1.2.0",
+    "router": "~1.1.4",
+    "tape": "~4.4.0"
+  }
+}

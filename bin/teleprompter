@@ -1,0 +1,33 @@
+#!/usr/bin/env node
+'use strict';
+
+var fs = require('fs');
+var path = require('path');
+var minimist = require('minimist');
+var argv = minimist(process.argv.slice(2), {
+  boolean: ['help'],
+  alias: {
+    help: 'h',
+    port: 'p'
+  },
+  default: {
+    port: 8080
+  }
+});
+var createServer = require('../lib/server');
+
+if (argv._.length !== 1) {
+  process.stdout.write('Error: Missing file argument.\n\n');
+  argv.help = true;
+}
+
+if (argv.help) {
+  process.stdout.write(fs.readFileSync(path.join(__dirname, 'usage'), 'utf8'));
+  process.exit(0);
+}
+
+createServer()
+  .on('listening', function () {
+    console.log('Listening on port %s...', argv.port);
+  })
+  .listen(argv.port);
