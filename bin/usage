@@ -1,0 +1,5 @@
+Usage: teleprompter <file>
+
+Options:
+  --help, -h      Print this help text, then exit.
+  --port, -p      Specify the port to listen on. [Default: 8080]
