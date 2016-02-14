@@ -15,6 +15,7 @@ var argv = minimist(process.argv.slice(2), {
   }
 });
 var createServer = require('../lib/server');
+var loadContent = require('../lib/content');
 
 if (argv._.length !== 1) {
   process.stdout.write('Error: Missing file argument.\n\n');
@@ -26,7 +27,7 @@ if (argv.help) {
   process.exit(0);
 }
 
-createServer()
+createServer(loadContent(path.join(process.cwd(), argv._[0])))
   .on('listening', function () {
     console.log('Listening on port %s...', argv.port);
   })
