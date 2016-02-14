@@ -1,0 +1,42 @@
+<html>
+  <head>
+    <title>Teleprompter</title>
+  </head>
+  <body>
+    %s
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/0.11.0/fetch.min.js"></script>
+    <script>
+      (function () {
+        var pendingUpdate;
+
+        function update() {
+          if (pendingUpdate) {
+            return;
+          }
+
+          pendingUpdate = true;
+
+          fetch('/settings', {
+            method: 'GET'
+          })
+            .then(function (res) {
+              return res.json();
+            })
+            .then(function (body) {
+              document.body.scrollTop = body.y;
+            })
+            .then(function () {
+              pendingUpdate = false;
+            });
+        }
+
+        (function tick() {
+          update();
+
+          requestAnimationFrame(tick);
+        }());
+      }());
+    </script>
+  </body>
+</html>
