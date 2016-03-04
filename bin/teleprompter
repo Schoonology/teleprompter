@@ -4,6 +4,8 @@
 var fs = require('fs');
 var path = require('path');
 var minimist = require('minimist');
+var createLoader = require('../lib/loader');
+var createServer = require('../lib/server');
 var argv = minimist(process.argv.slice(2), {
   boolean: ['help'],
   alias: {
@@ -31,3 +33,9 @@ function help(code) {
   process.stdout.write(fs.readFileSync(path.join(__dirname, 'usage'), 'utf8'));
   process.exit(code || 0);
 }
+
+createServer(createLoader(argv._[0]))
+  .on('listening', function () {
+    process.stdout.write('Listening on port ' + argv.port + '...');
+  })
+  .listen(argv.port);
