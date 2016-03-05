@@ -1,8 +1,8 @@
-document.addEventListener('DOMContentLoaded', function () {
-  var speedControl = document.querySelector('.speed');
-  var speedIndicator = document.querySelector('.speed__indicator');
-  var playButton = document.querySelector('.play');
-  var backButton = document.querySelector('.back');
+$(function () {
+  var $speed = $('.speed');
+  var $speedIndicator = $('.speed__indicator');
+  var $play = $('.play');
+  var $back = $('.back');
   var down = false;
   var speed = 0;
 
@@ -25,8 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function updateSpeed(event) {
-    var rect = speedControl.getBoundingClientRect();
-    var pct = event.clientX / rect.width;
+    var pct = event.clientX / $speed.outerWidth();
 
     setSpeed(pct);
   }
@@ -34,15 +33,15 @@ document.addEventListener('DOMContentLoaded', function () {
   function setSpeed(normal) {
     var left = normal * 100 + '%';
 
-    speedIndicator.style.left = left;
+    $speedIndicator.css('left', left);
     speed = Math.pow(normal, 2);
 
-    if (!playButton.classList.contains('paused')) {
+    if (!$play.hasClass('paused')) {
       postEvent({ type: 'speed', speed: speed });
     }
   }
 
-  speedControl.addEventListener('mousedown', function (e) {
+  $speed.mousedown(function (e) {
     e.preventDefault();
 
     updateSpeed(e);
@@ -50,13 +49,13 @@ document.addEventListener('DOMContentLoaded', function () {
     down = true;
   });
 
-  document.addEventListener('mouseup', function (e) {
+  $(document).mouseup(function (e) {
     e.preventDefault();
 
     down = false;
   })
 
-  document.addEventListener('mousemove', function (e) {
+  $(document).mousemove(function (e) {
     e.preventDefault();
 
     if (down) {
@@ -64,31 +63,29 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  speedControl.addEventListener('touchstart', function (e) {
+  $speed.bind('touchstart', function (e) {
     e.preventDefault();
 
     updateSpeed(e.changedTouches[0]);
   });
 
-  speedControl.addEventListener('touchmove', function (e) {
+  $speed.bind('touchmove', function (e) {
     e.preventDefault();
 
     updateSpeed(e.changedTouches[0]);
   });
 
-  playButton.addEventListener('click', function (e) {
-    if (playButton.classList.contains('paused')) {
-      postEvent({ type: 'speed', speed: speed });
+  $play.click(function (e) {
+    $play.toggleClass('paused');
 
-      playButton.classList.remove('paused')
-    } else {
+    if ($play.hasClass('paused')) {
       postEvent({ type: 'speed', speed: 0 });
-
-      playButton.classList.add('paused')
+    } else {
+      postEvent({ type: 'speed', speed: speed });
     }
   });
 
-  backButton.addEventListener('click', function (e) {
+  $back.click(function (e) {
     postEvent({ type: 'position', y: 0 });
   });
 });

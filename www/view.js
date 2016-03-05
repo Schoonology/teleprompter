@@ -1,30 +1,29 @@
-document.addEventListener('DOMContentLoaded', function () {
-  var es = new EventSource(String(window.location) + '/events');
-  var content = document.querySelector('.content');
+$(function () {
+  var $source = $(new EventSource(String(window.location) + '/events'));
+  var $content = $('.content');
+  var $flipButton = $('.flip-button');
+  var $contentContainer = $('.content-container');
   var speed = 0;
   var lastTick = Date.now();
   var lastPosition = 0;
 
-  es.addEventListener('position', function (event) {
-    var data = JSON.parse(event.data);
+  $source
+    .on('content', function () {
+      window.location.reload();
+    })
+    .on('position', function (event) {
+      var data = JSON.parse(event.originalEvent.data);
 
-    lastPosition = data.y;
-  });
+      lastPosition = data.y;
+    })
+    .on('speed', function (event) {
+      var data = JSON.parse(event.originalEvent.data);
 
-  es.addEventListener('speed', function (event) {
-    var data = JSON.parse(event.data);
+      speed = data.speed;
+    });
 
-    speed = data.speed;
-  });
-
-  document.querySelector('.flip-button').addEventListener('click', function () {
-    var contentContainer = document.querySelector('.content-container');
-
-    if (contentContainer.classList.contains('flip-y')) {
-      contentContainer.classList.remove('flip-y');
-    } else {
-      contentContainer.classList.add('flip-y');
-    }
+  $flipButton.click(function () {
+    $contentContainer.toggleClass('flip-y');
   });
 
   setInterval(function () {
@@ -34,12 +33,12 @@ document.addEventListener('DOMContentLoaded', function () {
     lastTick = Date.now();
     lastPosition = top;
 
-    if (top > content.getBoundingClientRect().height) {
-      top = content.getBoundingClientRect().height;
+    if (top > $content.outerHeight()) {
+      top = $content.outerHeight();
     }
 
-    content.style.transition = 'all linear ' + diff + 'ms';
-    content.style.transform = 'translate3d(0, -' + top + 'px, 0)';
-    content.style.WebkitTransform = 'translate3d(0, -' + top + 'px, 0)';
+    $content
+      .css('transition', 'all linear ' + diff + 'ms')
+      .css('transform', 'translate3d(0, -' + top + 'px, 0)');
   }, 100);
 });
