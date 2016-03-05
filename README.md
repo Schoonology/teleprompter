@@ -36,8 +36,8 @@ the URL, respectively.
 Name | URL | Description
 -----|-----|------------
 Dashboard | `/` | Displays all available scripts and metadata for Teleprompter itself.
-View | `/{script}` | Displays the named script, rendering any Markdown to HTML.
-Control | `/{script}/control` | Controls all View displays for the named script.
+Script | `/{script}` | Displays the named script, rendering any Markdown to HTML.
+Control | `/{script}/control` | Controls all Script displays for the named script.
 
 ## Browser Support
 
@@ -51,7 +51,7 @@ know the browser you ran into trouble with, and we'll see what we can do!
 
 ## Developing for Teleprompter
 
-Two additional routes exist for internal synchronization of Control and View
+Two additional routes exist for internal synchronization of Control and Script
 displays. Any event posted to the Publish route is sent to all clients attached
 to the Subscribe socket, where `{namespace}` is any string, generally the name
 of the script being displayed.
@@ -63,12 +63,12 @@ Publish | `POST /{namespace}/events` | Pushes a new event to all subscribers.
 
 These events arrive in the form of Objects with a `type` field and additional
 metadata. Once connected, an initial blast with the latest of each of the
-data-centric (e.g. `position`) events and their metadata to bring new Views
-up to speed. The table below lists the available events and their desired
-effects.
+data-centric (e.g. `position`) events and their metadata to bring new Script
+clients up to speed. The table below lists the available events and their
+desired effects.
 
 Name | Description
 -----|------------
-`content` | The content itself has been updated, and the View should reload.
+`content` | The content itself has been updated, and the Script client should reload.
 `position` | The scroll position should be reset to `y`, defaulting to `0` (top).
 `speed` | The scroll speed should be updated to `speed`, defaulting to `0` (stop).
