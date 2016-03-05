@@ -1,5 +1,6 @@
-Usage: teleprompter <file>
+Usage: teleprompter [OPTIONS] <scripts>
 
 Options:
-  --help, -h      Print this help text, then exit.
+  <scripts>       A directory of scripts to load. [Default: .]
+  --help, -h      Print usage information, then exit.
   --port, -p      Specify the port to listen on. [Default: 8080]
