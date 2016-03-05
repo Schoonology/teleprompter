@@ -48,3 +48,27 @@ the App Store and Play Store. When [filing issues][new-issue], please let us
 know the browser you ran into trouble with, and we'll see what we can do!
 
 [new-issue]: https://github.com/Schoonology/teleprompter/issues/new
+
+## Developing for Teleprompter
+
+Two additional routes exist for internal synchronization of Control and View
+displays. Any event posted to the Publish route is sent to all clients attached
+to the Subscribe socket, where `{namespace}` is any string, generally the name
+of the script being displayed.
+
+Name | URL | Description
+-----|-----|------------
+Subscribe (EventSource) | `GET /{namespace}/events` | An EventSource stream of updates.
+Publish | `POST /{namespace}/events` | Pushes a new event to all subscribers.
+
+These events arrive in the form of Objects with a `type` field and additional
+metadata. Once connected, an initial blast with the latest of each of the
+data-centric (e.g. `position`) events and their metadata to bring new Views
+up to speed. The table below lists the available events and their desired
+effects.
+
+Name | Description
+-----|------------
+`content` | The content itself has been updated, and the View should reload.
+`position` | The scroll position should be reset to `y`, defaulting to `0` (top).
+`speed` | The scroll speed should be updated to `speed`, defaulting to `0` (stop).
