@@ -1,0 +1,77 @@
+body {
+  background: black;
+  color: white;
+  font: 64px sans-serif;
+  line-height: 1.5;
+  margin: 0;
+}
+
+* {
+  font-size: inherit;
+}
+
+.content-container {
+  position: fixed;
+  top: 50%;
+  width: 100%;
+}
+
+.content-container.flip-x {
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
+
+.content-container.flip-y {
+  bottom: 50%;
+  -webkit-transform: scaleY(-1);
+  transform: scaleY(-1);
+}
+
+.content-container.flip-x.flip-y {
+  -webkit-transform: scaleX(-1) scaleY(-1);
+  transform: scaleX(-1) scaleY(-1);
+}
+
+p {
+  margin: 0 0 1.5em;
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+.indicator {
+  background: #fff;
+  height: 1.5em;
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+}
+
+.indicator::after {
+  background: #000;
+  content: '';
+  display: block;
+  height: 100%;
+  margin: 0 auto;
+  opacity: 0.8;
+  width: 15em;
+}
+
+.flip-button {
+  background: #888;
+  bottom: 0.5em;
+  font-size: 0.5em;
+  height: 2em;
+  position: fixed;
+  right: 0.5em;
+  width: 2em;
+  z-index: 1000;
+}
+
+.content {
+  margin: -0.5em auto 0;
+  transform: translate3d(0, 0, 0);
+  width: 14em;
+}

@@ -1,0 +1,74 @@
+html {
+  height: 100%;
+  overflow: hidden;
+  width: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  font: 4em sans-serif;
+  height: 100%;
+  margin: 0;
+}
+
+* {
+  font-size: inherit;
+}
+
+.speed {
+  background: #888;
+  background-image: linear-gradient(to right, #000, #080);
+  flex: 1;
+  position: relative;
+  width: 100%;
+}
+
+.speed__indicator {
+  background: #fff;
+  height: 100%;
+  left: 50%;
+  margin-left: -10px;
+  opacity: 0.7;
+  position: absolute;
+  width: 20px;
+}
+
+.buttons {
+  display: flex;
+  flex: 1;
+  width: 100%;
+}
+
+.back, .play, .forward {
+  flex: 1;
+}
+
+.back {
+  background: #fff;
+}
+
+.back::after {
+  content: 'Top';
+}
+
+.play {
+  background: #fc0;
+}
+
+.play::after {
+  content: 'Pause';
+}
+
+.play.paused {
+  background: #0cf;
+}
+
+.play.paused::after {
+  content: 'Play';
+}
+
+.forward {
+  background: #888;
+  display: none;
+}
