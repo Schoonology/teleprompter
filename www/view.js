@@ -26,8 +26,10 @@ $(function () {
       recalculateAnimation();
     });
 
+  $contentContainer.toggleClass('flip-y', Boolean(Number(localStorage.getItem('flip'))));
   $flipButton.click(function () {
     $contentContainer.toggleClass('flip-y');
+    localStorage.setItem('flip', Number($contentContainer.hasClass('flip-y')));
   });
 
   function getPosition() {
