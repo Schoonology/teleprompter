@@ -33,7 +33,12 @@ $(function () {
   });
 
   function getPosition() {
-    return Math.abs($content.position().top);
+    var top = NaN;
+
+    function matrix(_, _, _, _, _, f) { top = Math.abs(f); }
+    eval($content.css('transform'));
+
+    return top;
   }
 
   function setPosition(distance) {
