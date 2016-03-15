@@ -66,13 +66,13 @@ $(function () {
   $speed.bind('touchstart', function (e) {
     e.preventDefault();
 
-    updateSpeed(e.changedTouches[0]);
+    updateSpeed(e.originalEvent.changedTouches[0]);
   });
 
   $speed.bind('touchmove', function (e) {
     e.preventDefault();
 
-    updateSpeed(e.changedTouches[0]);
+    updateSpeed(e.originalEvent.changedTouches[0]);
   });
 
   $play.click(function (e) {
