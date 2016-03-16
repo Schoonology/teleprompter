@@ -3,10 +3,19 @@ $(function () {
   var $content = $('.content');
   var $flipButton = $('.flip-button');
   var $contentContainer = $('.content-container');
+  var $statusIndicator = $('.status-indicator');
   var speedVec = 0;
   var MAX_SPEED = 300;
 
   $source
+    .on('error', function () {
+      $statusIndicator.removeClass('open');
+      $statusIndicator.addClass('error');
+    })
+    .on('open', function () {
+      $statusIndicator.removeClass('error');
+      $statusIndicator.addClass('open');
+    })
     .on('content', function () {
       window.location.reload();
     })
