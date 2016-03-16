@@ -1,0 +1,5 @@
+------------
+Teleprompter v%s
+All browsers should be directed to http://%s:%s/
+Press Ctrl+C at any time to stop the server.
+------------

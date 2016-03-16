@@ -23,6 +23,7 @@
     "ecstatic": "~1.4.0",
     "faye-websocket": "~0.10.0",
     "finalhandler": "~0.4.1",
+    "ip": "~1.1.2",
     "marked": "~0.3.5",
     "minimist": "~1.2.0",
     "router": "~1.1.4",

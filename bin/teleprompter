@@ -3,9 +3,12 @@
 
 var fs = require('fs');
 var path = require('path');
+var util = require('util');
+var ip = require('ip');
 var minimist = require('minimist');
 var createLoader = require('../lib/loader');
 var createServer = require('../lib/server');
+var pkg = require('../package.json');
 var argv = minimist(process.argv.slice(2), {
   boolean: ['help'],
   alias: {
@@ -36,6 +39,11 @@ function help(code) {
 
 createServer(createLoader(argv._[0]))
   .on('listening', function () {
-    process.stdout.write('Listening on port ' + argv.port + '...');
+    process.stdout.write(util.format(
+      fs.readFileSync(path.join(__dirname, 'hello'), 'utf8'),
+      pkg.version,
+      ip.address(),
+      this.address().port
+    ));
   })
   .listen(argv.port);
