@@ -33,7 +33,8 @@ $(function () {
   });
 
   function getPosition() {
-    var top = NaN;
+    var top = 0;
+    var none;
 
     function matrix(_, _, _, _, _, f) { top = Math.abs(f); }
     eval($content.css('transform'));
