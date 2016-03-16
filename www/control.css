@@ -5,23 +5,73 @@ html {
 }
 
 body {
+  background: #000;
   display: flex;
   flex-direction: column;
-  font: 4em sans-serif;
   height: 100%;
   margin: 0;
+  padding: 16px;
 }
 
 * {
+  box-sizing: border-box;
   font-size: inherit;
+}
+
+button:active {
+  opacity: 0.8;
 }
 
 .speed {
   background: #888;
-  background-image: linear-gradient(to right, #000, #080);
+  background-image: -webkit-linear-gradient(left, #0e1900, #0e1900 10%, #1c3301 10%, #1c3301 20%, #2a4c01 20%, #2a4c01 30%, #396602 30%, #396602 40%, #477f02 40%, #477f02 50%, #559903 50%, #559903 60%, #64b203 60%, #64b203 70%, #72cc04 70%, #72cc04 80%, #80e504 80%, #80e504 90%, #8fff05 90%, #8fff05 100%);
+  background-image: -o-linear-gradient(left, #0e1900, #0e1900 10%, #1c3301 10%, #1c3301 20%, #2a4c01 20%, #2a4c01 30%, #396602 30%, #396602 40%, #477f02 40%, #477f02 50%, #559903 50%, #559903 60%, #64b203 60%, #64b203 70%, #72cc04 70%, #72cc04 80%, #80e504 80%, #80e504 90%, #8fff05 90%, #8fff05 100%);
+  background-image: linear-gradient(to right, #0e1900, #0e1900 10%, #1c3301 10%, #1c3301 20%, #2a4c01 20%, #2a4c01 30%, #396602 30%, #396602 40%, #477f02 40%, #477f02 50%, #559903 50%, #559903 60%, #64b203 60%, #64b203 70%, #72cc04 70%, #72cc04 80%, #80e504 80%, #80e504 90%, #8fff05 90%, #8fff05 100%);
   flex: 1;
+  overflow: hidden;
   position: relative;
   width: 100%;
+}
+
+.speed.paused {
+  background: #888;
+  background-image: -webkit-linear-gradient(left, #0e0e0e, #0e0e0e 10%, #1c1c1c 10%, #1c1c1c 20%, #2a2a2a 20%, #2a2a2a 30%, #393939 30%, #393939 40%, #474747 40%, #474747 50%, #555 50%, #555 60%, #646464 60%, #646464 70%, #727272 70%, #727272 80%, #808080 80%, #808080 90%, #8f8f8f 90%, #8f8f8f 100%);
+  background-image: -o-linear-gradient(left, #0e0e0e, #0e0e0e 10%, #1c1c1c 10%, #1c1c1c 20%, #2a2a2a 20%, #2a2a2a 30%, #393939 30%, #393939 40%, #474747 40%, #474747 50%, #555 50%, #555 60%, #646464 60%, #646464 70%, #727272 70%, #727272 80%, #808080 80%, #808080 90%, #8f8f8f 90%, #8f8f8f 100%);
+  background-image: linear-gradient(to right, #0e0e0e, #0e0e0e 10%, #1c1c1c 10%, #1c1c1c 20%, #2a2a2a 20%, #2a2a2a 30%, #393939 30%, #393939 40%, #474747 40%, #474747 50%, #555 50%, #555 60%, #646464 60%, #646464 70%, #727272 70%, #727272 80%, #808080 80%, #808080 90%, #8f8f8f 90%, #8f8f8f 100%);
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.speed::before {
+  background-image: url(/www/img/speed.svg);
+  background-position: bottom center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  content: '';
+  position: absolute;
+  left: 5%;
+  bottom: 5%;
+  width: 10%;
+  height: 100%;
+}
+
+.speed::after {
+  background-image: url(/www/img/speed.svg);
+  background-position: bottom center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  content: '';
+  position: absolute;
+  right: 5%;
+  bottom: 5%;
+  width: 10%;
+  height: 100%;
+  -webkit-transform: scaleX(-1);
+  -ms-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  transform: scaleX(-1);
 }
 
 .speed__indicator {
@@ -40,35 +90,30 @@ body {
   width: 100%;
 }
 
-.back, .play, .forward {
+.reset, .play {
+  border: 4px solid rgba(255, 255, 255, 0.2);
   flex: 1;
+  margin: 0;
 }
 
-.back {
-  background: #fff;
-}
-
-.back::after {
-  content: 'Top';
+.reset {
+  background: #F57B2E url(/www/img/reset.svg);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: auto 50%;
 }
 
 .play {
-  background: #fc0;
-}
-
-.play::after {
-  content: 'Pause';
+  background: #808080 url(/www/img/pause.svg);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: auto 50%;
+  color: #fff;
 }
 
 .play.paused {
-  background: #0cf;
-}
-
-.play.paused::after {
-  content: 'Play';
-}
-
-.forward {
-  background: #888;
-  display: none;
+  background: #72cc04 url(/www/img/play.svg);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: auto 50%;
 }

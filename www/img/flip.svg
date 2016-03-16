@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="101px" height="123px" viewBox="0 0 101 123" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.4 (15575) - http://www.bohemiancoding.com/sketch -->
+    <title>Group</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Artboard-1-Copy-3" sketch:type="MSArtboardGroup" transform="translate(-58.000000, -16.000000)" stroke-linecap="round" stroke="#FFFFFF" stroke-width="12">
+            <g id="Group" sketch:type="MSLayerGroup" transform="translate(64.000000, 22.000000)">
+                <path d="M16,16 L16,111" id="Line" sketch:type="MSShapeGroup"></path>
+                <path d="M15.7876534,110.787653 L0,95" id="Line" sketch:type="MSShapeGroup"></path>
+                <path d="M31.7876534,110.787653 L16,95" id="Line-Copy" sketch:type="MSShapeGroup" transform="translate(23.893827, 102.893827) scale(-1, 1) translate(-23.893827, -102.893827) "></path>
+                <path d="M73,0 L73,94" id="Line-Copy-4" sketch:type="MSShapeGroup" transform="translate(73.000000, 47.000000) scale(1, -1) translate(-73.000000, -47.000000) "></path>
+                <path d="M72.7876534,15.7876534 L57,0" id="Line-Copy-3" sketch:type="MSShapeGroup" transform="translate(64.893827, 7.893827) scale(1, -1) translate(-64.893827, -7.893827) "></path>
+                <path d="M88.7876534,15.7876534 L73,0" id="Line-Copy-2" sketch:type="MSShapeGroup" transform="translate(80.893827, 7.893827) scale(-1, -1) translate(-80.893827, -7.893827) "></path>
+            </g>
+        </g>
+    </g>
+</svg>

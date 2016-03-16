@@ -59,7 +59,7 @@ $(function () {
     // _set_ newPosition to the furthest extreme of the scrolling animation, and
     // solve the above formula for `deltaTime`, giving us the duration of the
     // _transition_ instead. A little algebra later...
-    var deltaTime = ($content.outerHeight() - getPosition()) / (speedVec * MAX_SPEED);
+    var deltaTime = ($content.innerHeight() - getPosition()) / (speedVec * MAX_SPEED);
 
     setDelta(deltaTime);
 
@@ -71,6 +71,6 @@ $(function () {
     // The transition will only restart if the desired value is different than
     // before. To ensure this is _always_ the case, we add a small jitter to
     // the value.
-    setPosition($content.outerHeight() + Math.random());
+    setPosition($content.innerHeight() + Math.random());
   }
 });

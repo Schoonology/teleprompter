@@ -2,7 +2,7 @@ $(function () {
   var $speed = $('.speed');
   var $speedIndicator = $('.speed__indicator');
   var $play = $('.play');
-  var $back = $('.back');
+  var $reset = $('.reset');
   var down = false;
   var speed = 0;
 
@@ -86,6 +86,7 @@ $(function () {
 
   $play.click(function (e) {
     $play.toggleClass('paused');
+    $speed.toggleClass('paused');
 
     if ($play.hasClass('paused')) {
       postEvent({ type: 'speed', speed: 0 });
@@ -94,7 +95,7 @@ $(function () {
     }
   });
 
-  $back.click(function (e) {
+  $reset.click(function (e) {
     postEvent({ type: 'position', y: 0 });
   });
 });
