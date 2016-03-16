@@ -45,6 +45,7 @@ p:last-child {
   height: 1.5em;
   position: fixed;
   top: 50%;
+  -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
   width: 100%;
 }
@@ -72,6 +73,7 @@ p:last-child {
 
 .content {
   margin: -0.5em auto 0;
+  -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
   width: 14em;
 }
