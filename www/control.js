@@ -6,6 +6,8 @@ $(function () {
   var down = false;
   var speed = 0;
 
+  FastClick.attach(document.body);
+
   setSpeed(0.5);
 
   function postEvent(body) {
@@ -25,12 +27,15 @@ $(function () {
   }
 
   function updateSpeed(event) {
-    var pct = event.clientX / $speed.outerWidth();
+    var x = event.clientX - $speed.offset().left;
+    var pct = x / $speed.outerWidth();
 
     setSpeed(pct);
   }
 
   function setSpeed(normal) {
+    normal = Math.max(Math.min(normal, 1), 0);
+
     var left = normal * 100 + '%';
 
     $speedIndicator.css('left', left);
@@ -47,6 +52,10 @@ $(function () {
     updateSpeed(e);
 
     down = true;
+  });
+
+  $(document).bind('touchmove', function(e) {
+    e.preventDefault();
   });
 
   $(document).mouseup(function (e) {
