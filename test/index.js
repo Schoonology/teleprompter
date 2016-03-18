@@ -1,6 +1,7 @@
 'use strict';
 
 require('./teleprompter');
-require('./resolver');
-require('./loader');
+require('./resolve-path');
+require('./load-file');
+require('./load-directory');
 require('./bus');

@@ -1,17 +1,15 @@
 'use strict';
 
 var path = require('path');
-var stream = require('stream');
 var Promise = require('bluebird');
-var loadStreamBody = require('raw-body');
 var tape = require('tape');
-var createResolver = require('../lib/resolver');
+var createResolvePath = require('../lib/resolve-path');
 
-tape.test('Resolver', function (suite) {
-  var resolver = createResolver(path.resolve(__dirname, 'fixture/loader'));
+tape.test('resolvePath', function (suite) {
+  var resolver = createResolvePath(path.resolve(__dirname, 'fixture/loader'));
 
   suite.test('constructor defaults to cwd', function (t) {
-    var subject = createResolver();
+    var subject = createResolvePath();
 
     t.equal(subject.dirname, process.cwd());
 
@@ -19,7 +17,7 @@ tape.test('Resolver', function (suite) {
   });
 
   suite.test('constructor accepts relative path', function (t) {
-    var subject = createResolver('relative');
+    var subject = createResolvePath('relative');
 
     t.equal(subject.dirname, path.join(process.cwd(), 'relative'));
 
@@ -27,7 +25,7 @@ tape.test('Resolver', function (suite) {
   });
 
   suite.test('constructor accepts absolute path', function (t) {
-    var subject = createResolver('/absolute');
+    var subject = createResolvePath('/absolute');
 
     t.equal(subject.dirname, '/absolute');
 
@@ -35,7 +33,7 @@ tape.test('Resolver', function (suite) {
   });
 
   suite.test('constructor returns resolver function', function (t) {
-    var subject = createResolver();
+    var subject = createResolvePath();
 
     t.ok(typeof subject === 'function');
 
@@ -63,7 +61,7 @@ tape.test('Resolver', function (suite) {
   });
 
   suite.test('resolver fails without name if dirname does not exist', function (t) {
-    createResolver('bogus-path')()
+    createResolvePath('bogus-path')()
       .then(function () {
         t.end(new Error('Should have failed.'));
       }, function (err) {
@@ -74,7 +72,7 @@ tape.test('Resolver', function (suite) {
   });
 
   suite.test('resolver fails with name if dirname does not exist', function (t) {
-    createResolver('bogus-path')('bogus-name')
+    createResolvePath('bogus-path')('bogus-name')
       .then(function () {
         t.end(new Error('Should have failed.'));
       }, function (err) {

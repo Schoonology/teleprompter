@@ -5,18 +5,18 @@ var stream = require('stream');
 var Promise = require('bluebird');
 var loadStreamBody = require('raw-body');
 var tape = require('tape');
-var createLoader = require('../lib/loader');
-var createResolver = require('../lib/resolver');
+var createLoadFile = require('../lib/load-file');
+var createResolver = require('../lib/resolve-path');
 
-tape.test('Loader', function (suite) {
-  var resolver = createResolver(path.resolve(__dirname, 'fixture/loader'));
-  var loader = createLoader(resolver);
+tape.test('loadFile', function (suite) {
+  var resolvePath = createResolver(path.resolve(__dirname, 'fixture/loader'));
+  var loadFile = createLoadFile(resolvePath);
 
   suite.test('constructor requires a function', function (t) {
     t.plan(1);
 
     try {
-      createLoader();
+      createLoadFile();
     } catch (err) {
       t.equal(err.name, 'TypeError');
     }
@@ -24,16 +24,16 @@ tape.test('Loader', function (suite) {
     t.end();
   });
 
-  suite.test('constructor returns loader function', function (t) {
-    var subject = createLoader(resolver);
+  suite.test('constructor returns loadFile function', function (t) {
+    var subject = createLoadFile(resolvePath);
 
     t.ok(typeof subject === 'function');
 
     t.end();
   });
 
-  suite.test('loader returns a Promise', function (t) {
-    var subject = loader('test');
+  suite.test('loadFile returns a Promise', function (t) {
+    var subject = loadFile('test');
 
     t.ok(subject instanceof Promise);
 
@@ -41,8 +41,8 @@ tape.test('Loader', function (suite) {
     subject.catch(function noop() {});
   });
 
-  suite.test('loader rejects bogus name', function (t) {
-    loader('obviously-does-not-exist')
+  suite.test('loadFile rejects bogus name', function (t) {
+    loadFile('obviously-does-not-exist')
       .then(function () {
         t.end(new Error('Should have failed.'));
       }, function (err) {
@@ -52,34 +52,16 @@ tape.test('Loader', function (suite) {
       });
   });
 
-  suite.test('loader loads html', function (t) {
-    loader('html-only')
+  suite.test('loadFile loads html', function (t) {
+    loadFile('html-only')
       .then(function (subject) {
-        t.equal(subject.path, path.join(resolver.dirname, 'html-only.html'));
+        t.equal(subject.path, path.join(resolvePath.dirname, 'html-only.html'));
       })
       .then(t.end, t.end);
   });
 
-  suite.test('loader loads html as stream', function (t) {
-    loader('html-only')
-      .then(function (subject) {
-        t.ok(subject instanceof stream.Stream);
-        t.ok(typeof subject.read === 'function', 'has read function');
-        t.ok(typeof subject.pipe === 'function', 'has pipe function');
-      })
-      .then(t.end, t.end);
-  });
-
-  suite.test('loader loads md', function (t) {
-    loader('md-only')
-      .then(function (subject) {
-        t.equal(subject.path, path.join(resolver.dirname, 'md-only.md'));
-      })
-      .then(t.end, t.end);
-  });
-
-  suite.test('loader loads md as stream', function (t) {
-    loader('md-only')
+  suite.test('loadFile loads html as stream', function (t) {
+    loadFile('html-only')
       .then(function (subject) {
         t.ok(subject instanceof stream.Stream);
         t.ok(typeof subject.read === 'function', 'has read function');
@@ -88,34 +70,16 @@ tape.test('Loader', function (suite) {
       .then(t.end, t.end);
   });
 
-  suite.test('loader loads markdown', function (t) {
-    loader('markdown-only')
+  suite.test('loadFile loads md', function (t) {
+    loadFile('md-only')
       .then(function (subject) {
-        t.equal(subject.path, path.join(resolver.dirname, 'markdown-only.markdown'));
+        t.equal(subject.path, path.join(resolvePath.dirname, 'md-only.md'));
       })
       .then(t.end, t.end);
   });
 
-  suite.test('loader loads markdown as stream', function (t) {
-    loader('markdown-only')
-      .then(function (subject) {
-        t.ok(subject instanceof stream.Stream);
-        t.ok(typeof subject.read === 'function', 'has read function');
-        t.ok(typeof subject.pipe === 'function', 'has pipe function');
-      })
-      .then(t.end, t.end);
-  });
-
-  suite.test('loader loads txt', function (t) {
-    loader('txt-only')
-      .then(function (subject) {
-        t.equal(subject.path, path.join(resolver.dirname, 'txt-only.txt'));
-      })
-      .then(t.end, t.end);
-  });
-
-  suite.test('loader loads txt as stream', function (t) {
-    loader('txt-only')
+  suite.test('loadFile loads md as stream', function (t) {
+    loadFile('md-only')
       .then(function (subject) {
         t.ok(subject instanceof stream.Stream);
         t.ok(typeof subject.read === 'function', 'has read function');
@@ -124,32 +88,68 @@ tape.test('Loader', function (suite) {
       .then(t.end, t.end);
   });
 
-  suite.test('loader prefers html', function (t) {
-    loader('priority-html')
+  suite.test('loadFile loads markdown', function (t) {
+    loadFile('markdown-only')
       .then(function (subject) {
-        t.equal(subject.path, path.join(resolver.dirname, 'priority-html.html'));
+        t.equal(subject.path, path.join(resolvePath.dirname, 'markdown-only.markdown'));
       })
       .then(t.end, t.end);
   });
 
-  suite.test('loader prefers md', function (t) {
-    loader('priority-md')
+  suite.test('loadFile loads markdown as stream', function (t) {
+    loadFile('markdown-only')
       .then(function (subject) {
-        t.equal(subject.path, path.join(resolver.dirname, 'priority-md.md'));
+        t.ok(subject instanceof stream.Stream);
+        t.ok(typeof subject.read === 'function', 'has read function');
+        t.ok(typeof subject.pipe === 'function', 'has pipe function');
       })
       .then(t.end, t.end);
   });
 
-  suite.test('loader prefers markdown', function (t) {
-    loader('priority-markdown')
+  suite.test('loadFile loads txt', function (t) {
+    loadFile('txt-only')
       .then(function (subject) {
-        t.equal(subject.path, path.join(resolver.dirname, 'priority-markdown.markdown'));
+        t.equal(subject.path, path.join(resolvePath.dirname, 'txt-only.txt'));
       })
       .then(t.end, t.end);
   });
 
-  suite.test('loader parses md', function (t) {
-    loader('md-only')
+  suite.test('loadFile loads txt as stream', function (t) {
+    loadFile('txt-only')
+      .then(function (subject) {
+        t.ok(subject instanceof stream.Stream);
+        t.ok(typeof subject.read === 'function', 'has read function');
+        t.ok(typeof subject.pipe === 'function', 'has pipe function');
+      })
+      .then(t.end, t.end);
+  });
+
+  suite.test('loadFile prefers html', function (t) {
+    loadFile('priority-html')
+      .then(function (subject) {
+        t.equal(subject.path, path.join(resolvePath.dirname, 'priority-html.html'));
+      })
+      .then(t.end, t.end);
+  });
+
+  suite.test('loadFile prefers md', function (t) {
+    loadFile('priority-md')
+      .then(function (subject) {
+        t.equal(subject.path, path.join(resolvePath.dirname, 'priority-md.md'));
+      })
+      .then(t.end, t.end);
+  });
+
+  suite.test('loadFile prefers markdown', function (t) {
+    loadFile('priority-markdown')
+      .then(function (subject) {
+        t.equal(subject.path, path.join(resolvePath.dirname, 'priority-markdown.markdown'));
+      })
+      .then(t.end, t.end);
+  });
+
+  suite.test('loadFile parses md', function (t) {
+    loadFile('md-only')
       .then(function (subject) {
         return loadStreamBody(subject);
       })
@@ -159,8 +159,8 @@ tape.test('Loader', function (suite) {
       .then(t.end, t.end);
   });
 
-  suite.test('loader parses markdown', function (t) {
-    loader('markdown-only')
+  suite.test('loadFile parses markdown', function (t) {
+    loadFile('markdown-only')
       .then(function (subject) {
         return loadStreamBody(subject);
       })
@@ -170,8 +170,8 @@ tape.test('Loader', function (suite) {
       .then(t.end, t.end);
   });
 
-  suite.test('loader parses txt', function (t) {
-    loader('txt-only')
+  suite.test('loadFile parses txt', function (t) {
+    loadFile('txt-only')
       .then(function (subject) {
         return loadStreamBody(subject);
       })
@@ -181,34 +181,13 @@ tape.test('Loader', function (suite) {
       .then(t.end, t.end);
   });
 
-  suite.test('loader preserves html', function (t) {
-    loader('html-only')
+  suite.test('loadFile preserves html', function (t) {
+    loadFile('html-only')
       .then(function (subject) {
         return loadStreamBody(subject);
       })
       .then(function (body) {
         t.equal(String(body.slice(0, 3)), '<p>');
-      })
-      .then(t.end, t.end);
-  });
-
-  suite.test('loader returns directory listing without name', function (t) {
-    loader()
-      .then(function (subject) {
-        t.notEqual(subject.indexOf('html-only'), -1);
-        t.equal(subject.indexOf('bogus-name'), -1);
-      })
-      .then(t.end, t.end);
-  });
-
-  suite.test('loader directory listing removes duplicates', function (t) {
-    loader()
-      .then(function (subject) {
-        t.notEqual(subject.indexOf('priority-html'), -1);
-
-        subject.splice(subject.indexOf('priority-html'), 1);
-
-        t.equal(subject.indexOf('priority-html'), -1);
       })
       .then(t.end, t.end);
   });
