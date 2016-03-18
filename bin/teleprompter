@@ -6,7 +6,7 @@ var path = require('path');
 var util = require('util');
 var ip = require('ip');
 var minimist = require('minimist');
-var createLoader = require('../lib/loader');
+var createResolver = require('../lib/resolver');
 var createServer = require('../lib/server');
 var pkg = require('../package.json');
 var argv = minimist(process.argv.slice(2), {
@@ -37,7 +37,7 @@ function help(code) {
   process.exit(code || 0);
 }
 
-createServer(createLoader(argv._[0]))
+createServer(createResolver(argv._[0]))
   .on('listening', function () {
     process.stdout.write(util.format(
       fs.readFileSync(path.join(__dirname, 'hello'), 'utf8'),

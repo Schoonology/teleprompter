@@ -6,36 +6,26 @@ var Promise = require('bluebird');
 var loadStreamBody = require('raw-body');
 var tape = require('tape');
 var createLoader = require('../lib/loader');
+var createResolver = require('../lib/resolver');
 
 tape.test('Loader', function (suite) {
-  var loader = createLoader(path.resolve(__dirname, 'fixture/loader'));
+  var resolver = createResolver(path.resolve(__dirname, 'fixture/loader'));
+  var loader = createLoader(resolver);
 
-  suite.test('constructor defaults to cwd', function (t) {
-    var subject = createLoader();
+  suite.test('constructor requires a function', function (t) {
+    t.plan(1);
 
-    t.equal(subject.dirname, process.cwd());
-
-    t.end();
-  });
-
-  suite.test('constructor accepts relative path', function (t) {
-    var subject = createLoader('relative');
-
-    t.equal(subject.dirname, path.join(process.cwd(), 'relative'));
-
-    t.end();
-  });
-
-  suite.test('constructor accepts absolute path', function (t) {
-    var subject = createLoader('/absolute');
-
-    t.equal(subject.dirname, '/absolute');
+    try {
+      createLoader();
+    } catch (err) {
+      t.equal(err.name, 'TypeError');
+    }
 
     t.end();
   });
 
   suite.test('constructor returns loader function', function (t) {
-    var subject = createLoader();
+    var subject = createLoader(resolver);
 
     t.ok(typeof subject === 'function');
 
@@ -65,7 +55,7 @@ tape.test('Loader', function (suite) {
   suite.test('loader loads html', function (t) {
     loader('html-only')
       .then(function (subject) {
-        t.equal(subject.path, path.join(loader.dirname, 'html-only.html'));
+        t.equal(subject.path, path.join(resolver.dirname, 'html-only.html'));
       })
       .then(t.end, t.end);
   });
@@ -83,7 +73,7 @@ tape.test('Loader', function (suite) {
   suite.test('loader loads md', function (t) {
     loader('md-only')
       .then(function (subject) {
-        t.equal(subject.path, path.join(loader.dirname, 'md-only.md'));
+        t.equal(subject.path, path.join(resolver.dirname, 'md-only.md'));
       })
       .then(t.end, t.end);
   });
@@ -101,7 +91,7 @@ tape.test('Loader', function (suite) {
   suite.test('loader loads markdown', function (t) {
     loader('markdown-only')
       .then(function (subject) {
-        t.equal(subject.path, path.join(loader.dirname, 'markdown-only.markdown'));
+        t.equal(subject.path, path.join(resolver.dirname, 'markdown-only.markdown'));
       })
       .then(t.end, t.end);
   });
@@ -119,7 +109,7 @@ tape.test('Loader', function (suite) {
   suite.test('loader loads txt', function (t) {
     loader('txt-only')
       .then(function (subject) {
-        t.equal(subject.path, path.join(loader.dirname, 'txt-only.txt'));
+        t.equal(subject.path, path.join(resolver.dirname, 'txt-only.txt'));
       })
       .then(t.end, t.end);
   });
@@ -137,7 +127,7 @@ tape.test('Loader', function (suite) {
   suite.test('loader prefers html', function (t) {
     loader('priority-html')
       .then(function (subject) {
-        t.equal(subject.path, path.join(loader.dirname, 'priority-html.html'));
+        t.equal(subject.path, path.join(resolver.dirname, 'priority-html.html'));
       })
       .then(t.end, t.end);
   });
@@ -145,7 +135,7 @@ tape.test('Loader', function (suite) {
   suite.test('loader prefers md', function (t) {
     loader('priority-md')
       .then(function (subject) {
-        t.equal(subject.path, path.join(loader.dirname, 'priority-md.md'));
+        t.equal(subject.path, path.join(resolver.dirname, 'priority-md.md'));
       })
       .then(t.end, t.end);
   });
@@ -153,7 +143,7 @@ tape.test('Loader', function (suite) {
   suite.test('loader prefers markdown', function (t) {
     loader('priority-markdown')
       .then(function (subject) {
-        t.equal(subject.path, path.join(loader.dirname, 'priority-markdown.markdown'));
+        t.equal(subject.path, path.join(resolver.dirname, 'priority-markdown.markdown'));
       })
       .then(t.end, t.end);
   });
