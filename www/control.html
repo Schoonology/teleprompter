@@ -1,7 +1,9 @@
+<!DOCTYPE html>
 <html>
   <head>
     <title>Teleprompter</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <script src="/vendor/eventsource.js"></script>
     <script src="/vendor/fetch.js"></script>
     <script src="/vendor/fastclick.js"></script>
     <script src="/vendor/jquery.js"></script>
@@ -11,6 +13,9 @@
   <body>
     <div class="speed needsclick paused">
       <div class="speed__indicator"></div>
+    </div>
+    <div class="status-bar">
+      <span class="status-bar__connectivity"></span> <span class="status-bar__speed">0</span>
     </div>
     <div class="buttons">
       <button class="reset"></button>

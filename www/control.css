@@ -1,5 +1,7 @@
 html {
+  font: 32px sans-serif;
   height: 100%;
+  line-height: 1.5em;
   overflow: hidden;
   width: 100%;
 }
@@ -82,6 +84,28 @@ button:active {
   opacity: 0.7;
   position: absolute;
   width: 20px;
+}
+
+.status-bar {
+  color: white;
+  flex: 0 1.5em;
+}
+
+.status-bar__connectivity {
+  background: #888;
+  border: 0.05rem solid rgba(255, 255, 255, 0.2);
+  border-radius: 0.5em;
+  display: inline-block;
+  height: 0.6em;
+  width: 0.6em;
+}
+
+.status-bar__connectivity.error {
+  background: #F04848;
+}
+
+.status-bar__connectivity.open {
+  background: #72cc04;
 }
 
 .buttons {

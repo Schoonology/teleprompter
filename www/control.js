@@ -1,12 +1,25 @@
 $(function () {
+  var $source = $(new EventSource(String(window.location) + '/../events'));
   var $speed = $('.speed');
   var $speedIndicator = $('.speed__indicator');
+  var $speedDisplay = $('.status-bar__speed');
+  var $statusIndicator = $('.status-bar__connectivity');
   var $play = $('.play');
   var $reset = $('.reset');
   var down = false;
   var speed = 0;
 
   FastClick.attach(document.body);
+
+  $source
+    .on('error', function () {
+      $statusIndicator.removeClass('open');
+      $statusIndicator.addClass('error');
+    })
+    .on('open', function () {
+      $statusIndicator.removeClass('error');
+      $statusIndicator.addClass('open');
+    });
 
   setSpeed(0.5);
 
@@ -20,9 +33,11 @@ $(function () {
       credentials: 'same-origin'
     })
       .then(function (response) {
-        console.log('SUCCESS:', response);
+        $statusIndicator.removeClass('error');
+        $statusIndicator.addClass('open');
       }, function (error) {
-        console.log('FAILURE:', error);
+        $statusIndicator.removeClass('open');
+        $statusIndicator.addClass('error');
       });
   }
 
@@ -36,9 +51,9 @@ $(function () {
   function setSpeed(normal) {
     normal = Math.max(Math.min(normal, 1), 0);
 
-    var left = normal * 100 + '%';
+    $speedIndicator.css('left', normal * 100 + '%');
+    $speedDisplay.html(Math.round(normal * 1000) / 10);
 
-    $speedIndicator.css('left', left);
     speed = Math.pow(normal, 2);
 
     if (!$play.hasClass('paused')) {
