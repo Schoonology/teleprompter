@@ -20,6 +20,7 @@
   "dependencies": {
     "bluebird": "~3.3.1",
     "body-parser": "~1.15.0",
+    "dot": "~1.0.3",
     "ecstatic": "~1.4.0",
     "faye-websocket": "~0.10.0",
     "finalhandler": "~0.4.1",

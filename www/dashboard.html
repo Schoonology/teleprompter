@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Teleprompter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="/www/dashboard.css">
+  </head>
+  <body>
+    <h1>Teleprompter v{{=it.version}}</h1>
+    <h2>Scripts</h2>
+    <ul class="script-list">
+      {{~it.files :filename}}
+      <li class="script-list__item">
+        <a class="script-list__link" href="/{{=filename}}">{{=filename}}</a>
+      </li>
+      {{~}}
+    </ul>
+  </body>
+</html>
