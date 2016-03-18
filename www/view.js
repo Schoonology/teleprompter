@@ -7,6 +7,8 @@ $(function () {
   var speedVec = 0;
   var MAX_SPEED = 300;
 
+  FastClick.attach(document.body);
+
   $source
     .on('error', function () {
       $statusIndicator.removeClass('open');
