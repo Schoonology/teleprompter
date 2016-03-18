@@ -2,6 +2,7 @@
 
 var path = require('path');
 var stream = require('stream');
+var Promise = require('bluebird');
 var loadStreamBody = require('raw-body');
 var tape = require('tape');
 var createLoader = require('../lib/loader');
@@ -47,6 +48,7 @@ tape.test('Loader', function (suite) {
     t.ok(subject instanceof Promise);
 
     t.end();
+    subject.catch(function noop() {});
   });
 
   suite.test('loader rejects bogus name', function (t) {
@@ -196,6 +198,27 @@ tape.test('Loader', function (suite) {
       })
       .then(function (body) {
         t.equal(String(body.slice(0, 3)), '<p>');
+      })
+      .then(t.end, t.end);
+  });
+
+  suite.test('loader returns directory listing without name', function (t) {
+    loader()
+      .then(function (subject) {
+        t.notEqual(subject.indexOf('html-only'), -1);
+        t.equal(subject.indexOf('bogus-name'), -1);
+      })
+      .then(t.end, t.end);
+  });
+
+  suite.test('loader directory listing removes duplicates', function (t) {
+    loader()
+      .then(function (subject) {
+        t.notEqual(subject.indexOf('priority-html'), -1);
+
+        subject.splice(subject.indexOf('priority-html'), 1);
+
+        t.equal(subject.indexOf('priority-html'), -1);
       })
       .then(t.end, t.end);
   });
