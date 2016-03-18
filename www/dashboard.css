@@ -32,7 +32,17 @@ h2 {
   text-align: right;
 }
 
-.script-list {
+a {
+  color: #5ddfff;
+  text-decoration: none;
+}
+
+.icon {
+  height: 1.25em;
+  vertical-align: text-bottom;
+}
+
+.nav-list {
   -webkit-columns: 2 350px;
   -moz-columns: 2 350px;
   -o-columns: 2 350px;
@@ -46,21 +56,15 @@ h2 {
   list-style: none;
 }
 
-.script-list__item {
+.nav-list__item {
   background: #202020;
 }
 
-.script-list__item:nth-child(2n) {
+.nav-list__item:nth-child(2n) {
   background: #303030;
 }
 
-.script-list__link {
-  color: #5ddfff;
+.nav-list__link {
   display: block;
   padding: 0.25em 0.5em;
-  text-decoration: none;
-}
-
-.script-list__link::before {
-  content: '– ';
 }

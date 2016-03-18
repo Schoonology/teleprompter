@@ -8,10 +8,18 @@
   <body>
     <h1>Teleprompter v{{=it.version}}</h1>
     <h2>Scripts</h2>
-    <ul class="script-list">
+    <ul class="nav-list">
       {{~it.files :filename}}
-      <li class="script-list__item">
-        <a class="script-list__link" href="/{{=filename}}">{{=filename}}</a>
+      <li class="nav-list__item">
+        <a class="nav-list__link" href="/{{=filename}}">{{=filename}}</a>
+      </li>
+      {{~}}
+    </ul>
+    <h2>Controls</h2>
+    <ul class="nav-list">
+      {{~it.files :filename}}
+      <li class="nav-list__item">
+        <a class="nav-list__link" href="/{{=filename}}/control">{{=filename}}</a>
       </li>
       {{~}}
     </ul>
