@@ -44,13 +44,7 @@ $(function () {
   });
 
   function getPosition() {
-    var top = 0;
-    var none;
-
-    function matrix(_, _, _, _, _, f) { top = Math.abs(f); }
-    eval($content.css('transform'));
-
-    return top;
+    return $content.position().top * -1;
   }
 
   function setPosition(distance) {
@@ -72,7 +66,7 @@ $(function () {
     // _transition_ instead. A little algebra later...
     var deltaTime = ($content.innerHeight() - getPosition()) / (speedVec * MAX_SPEED);
 
-    setDelta(deltaTime);
+    setDelta(isFinite(deltaTime) ? deltaTime : 0);
 
     if (speedVec === 0) {
       setPosition(getPosition());
