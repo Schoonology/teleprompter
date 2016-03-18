@@ -2,9 +2,9 @@
 
 Teleprompter displays scripts formatted as HTML, Markdown, or plain text,
 scrolling the script consistently. A second web browser can be attached to a
-"control" view for that script, able to control or stop the scroll speed, jump
-back to the top of the script, or even zoom and flip the text to conform to
-different equipment needs.
+"control" view for that script, able to control or stop the scroll speed and
+jump back to the top of the script. Each scrolling view can be adjusted to
+conform to different equipment needs.
 
 ## Usage
 
@@ -61,11 +61,10 @@ Name | URL | Description
 Subscribe (EventSource) | `GET /{namespace}/events` | An EventSource stream of updates.
 Publish | `POST /{namespace}/events` | Pushes a new event to all subscribers.
 
-These events arrive in the form of Objects with a `type` field and additional
-metadata. Once connected, an initial blast with the latest of each of the
-data-centric (e.g. `position`) events and their metadata to bring new Script
-clients up to speed. The table below lists the available events and their
-desired effects.
+These events arrive in the form of JSON with a `type` field (in addition to the
+`text/event-stream`-provided `event` field) and additional metadata.
+
+The table below lists the available events and their desired effects.
 
 Name | Description
 -----|------------
