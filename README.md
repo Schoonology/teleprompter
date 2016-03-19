@@ -6,7 +6,40 @@ scrolling the script consistently. A second web browser can be attached to a
 jump back to the top of the script. Each scrolling view can be adjusted to
 conform to different equipment needs.
 
-## Usage
+## Installation
+
+1. Install [Node][node].
+2. Open a shell. On Windows, this will be the Command Prompt. On Mac OS X, this
+should be Terminal.
+3. In a shell, type `npm install -g teleprompter`. If you get an `EACCESS`
+error at the end, you may have to run `sudo npm install -g teleprompter`
+instead.
+
+[node]: https://nodejs.org/
+
+## Basic usage
+
+1. Open a shell. (If it's still open from installing, that's fine.)
+2. Use the `cd` command to change the current working directory to where your
+scripts live. For example, if your scripts are located at
+`/Users/schoon/Scripts`, you'd type `cd /Users/schoon/Scripts`.
+3. In that same shell, run `teleprompter`.
+4. You should see a basic greeting, which includes instructions for connecting
+devices to your newly-running server. _Follow the instructions!_
+5. Have fun!
+
+## Basic physical setup
+
+A setup that has worked well in studios so far has included the following:
+
+- A MacBook or iMac running `teleprompter`.
+- An iPad or other tablet used as the teleprompter display (the one physically
+  co-located with the camera).
+- A second tablet used as a monitor for the Teleprompter operator.
+- A smartphone connected to that script's Control view, also for the
+  Teleprompter operator.
+
+## Detailed usage
 
 Teleprompter expects to be run against a directory of text files. If
 unspecified, the current working directory is used instead.
@@ -25,6 +58,16 @@ is available to use. A reasonable default, 8080, has been provided, and
 shouldn't collide with other applications. (If it _does_ collide, you probably
 know well enough to change it.)
 
+## Browser Support
+
+For best results, use the newest browser supported by your platform. For iOS
+and Android, this will probably be Safari and Android, respectively. For older
+phones and tablets, however, a more up-to-date browser may be available through
+the App Store and Play Store. When [filing issues][new-issue], please let us
+know the browser you ran into trouble with, and we'll see what we can do!
+
+[new-issue]: https://github.com/Schoonology/teleprompter/issues/new
+
 ## Routes
 
 Once Teleprompter is running successfully, a web browser can be pointed at any
@@ -38,16 +81,6 @@ Name | URL | Description
 Dashboard | `/` | Displays all available scripts and metadata for Teleprompter itself.
 Script | `/{script}` | Displays the named script, rendering any Markdown to HTML.
 Control | `/{script}/control` | Controls all Script displays for the named script.
-
-## Browser Support
-
-For best results, use the newest browser supported by your platform. For iOS
-and Android, this will probably be Safari and Android, respectively. For older
-phones and tablets, however, a more up-to-date browser may be available through
-the App Store and Play Store. When [filing issues][new-issue], please let us
-know the browser you ran into trouble with, and we'll see what we can do!
-
-[new-issue]: https://github.com/Schoonology/teleprompter/issues/new
 
 ## Developing for Teleprompter
 
