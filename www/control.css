@@ -114,7 +114,7 @@ button:active {
   width: 100%;
 }
 
-.reset, .play {
+.reset, .play, .back, .forward {
   border: 4px solid rgba(255, 255, 255, 0.2);
   flex: 1;
   margin: 0;
@@ -124,14 +124,32 @@ button:active {
   background: #F57B2E url(/www/img/reset.svg);
   background-position: center center;
   background-repeat: no-repeat;
-  background-size: auto 50%;
+  background-size: 50%;
+}
+
+.back {
+  background: #3776e6 url(/www/img/jump.svg);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 50%;
+}
+
+.forward {
+  background: #3776e6 url(/www/img/jump.svg);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 50%;
+  -webkit-transform: scaleX(-1);
+  -ms-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  transform: scaleX(-1);
 }
 
 .play {
   background: #808080 url(/www/img/pause.svg);
   background-position: center center;
   background-repeat: no-repeat;
-  background-size: auto 50%;
+  background-size: 50%;
   color: #fff;
 }
 
@@ -139,5 +157,5 @@ button:active {
   background: #72cc04 url(/www/img/play.svg);
   background-position: center center;
   background-repeat: no-repeat;
-  background-size: auto 50%;
+  background-size: 50%;
 }

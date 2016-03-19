@@ -6,6 +6,8 @@ $(function () {
   var $statusIndicator = $('.status-bar__connectivity');
   var $play = $('.play');
   var $reset = $('.reset');
+  var $back = $('.back');
+  var $forward = $('.forward');
   var down = false;
   var speed = 0;
 
@@ -112,5 +114,13 @@ $(function () {
 
   $reset.click(function (e) {
     postEvent({ type: 'position', y: 0 });
+  });
+
+  $back.click(function (e) {
+    postEvent({ type: 'jump', direction: -1 });
+  });
+
+  $forward.click(function (e) {
+    postEvent({ type: 'jump', direction: 1 });
   });
 });
