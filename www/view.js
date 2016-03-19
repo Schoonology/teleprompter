@@ -4,6 +4,7 @@ $(function () {
   var $flipButton = $('.flip-button');
   var $contentContainer = $('.content-container');
   var $statusIndicator = $('.status-indicator');
+  var $breaks = $('p');
   var speedVec = 0;
   var MAX_SPEED = 300;
 
@@ -35,6 +36,32 @@ $(function () {
       speedVec = data.speed;
 
       recalculateAnimation();
+    })
+    .on('jump', function (event) {
+      var data = JSON.parse(event.originalEvent.data);
+      var targetTop = $content.offset().top - $content.position().top;
+      var minimum = $('.indicator').innerHeight() / 2;
+      var deltaTop = 0;
+
+      $breaks
+        .map(function (_, el) {
+          // The 2 here is adjusting for the margin on `.content`.
+          return ($(el).offset().top - 2 - targetTop) * data.direction;
+        })
+        .filter(function (_, elTop) {
+          return elTop > 0;
+        })
+        .each(function (_, elTop) {
+          if (!deltaTop || elTop > minimum && elTop < deltaTop) {
+            deltaTop = elTop;
+          }
+        });
+
+      if (deltaTop) {
+        setDelta(0);
+        setPosition(getPosition() + deltaTop * data.direction);
+        requestAnimationFrame(recalculateAnimation);
+      }
     });
 
   $contentContainer.toggleClass('flip-y', Boolean(Number(localStorage.getItem('flip'))));
