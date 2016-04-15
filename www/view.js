@@ -28,7 +28,7 @@ $(function () {
       setDelta(0);
       setPosition(data.y);
 
-      requestAnimationFrame(recalculateAnimation);
+      recalculateAnimation();
     })
     .on('speed', function (event) {
       var data = JSON.parse(event.originalEvent.data);
@@ -60,7 +60,7 @@ $(function () {
       if (deltaTop) {
         setDelta(0);
         setPosition(getPosition() + deltaTop * data.direction);
-        requestAnimationFrame(recalculateAnimation);
+        recalculateAnimation();
       }
     });
 
@@ -82,6 +82,7 @@ $(function () {
     $content.css('transition', 'all linear ' + delta + 's');
   }
 
+  recalculateAnimation = util.debounce(recalculateAnimation);
   function recalculateAnimation() {
     // Movement in animation is calculated as a function of time such that:
     //

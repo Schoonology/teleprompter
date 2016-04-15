@@ -43,6 +43,12 @@ $(function () {
       });
   }
 
+  var postSpeedEvent = util.debounce(function postSpeedEvent(speed) {
+    postEvent({ type: 'speed', speed: speed });
+  }, {
+    delay: 100
+  });
+
   function updateSpeed(event) {
     var x = event.clientX - $speed.offset().left;
     var pct = x / $speed.outerWidth();
@@ -59,7 +65,7 @@ $(function () {
     speed = Math.pow(normal, 2);
 
     if (!$play.hasClass('paused')) {
-      postEvent({ type: 'speed', speed: speed });
+      postSpeedEvent(speed);
     }
   }
 
