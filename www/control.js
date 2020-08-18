@@ -10,6 +10,8 @@ $(function () {
   var $forward = $('.forward');
   var down = false;
   var speed = 0;
+  var $contentContainer = $('.content-container');
+  var flipped = flipped = Number($contentContainer.hasClass('flip-y'));
 
   FastClick.attach(document.body);
 
